@@ -228,6 +228,13 @@ class SocketParser {
             }
         } else if p.type == SocketPacketType.DISCONNECT {
             socket.didForceClose("Got Disconnect")
+        } else if p.type == SocketPacketType.ERROR {
+            if let m = p.data?[0] as? String {
+                socket.didForceClose(m)
+            }
+            else {
+                socket.didForceClose("Unknown error")
+            }
         }
     }
 
